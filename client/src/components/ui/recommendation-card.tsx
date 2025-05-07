@@ -3,8 +3,6 @@ import { Heart, ShoppingCart, Check } from "lucide-react";
 import { Product } from "@shared/schema";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
-import { useCart } from "@/hooks/use-cart";
-import { useAuth } from "@/hooks/use-auth";
 
 interface RecommendationCardProps {
   product: Product;
@@ -13,29 +11,17 @@ interface RecommendationCardProps {
 
 export function RecommendationCard({ product, reason }: RecommendationCardProps) {
   const [isLiked, setIsLiked] = useState(false);
-  const { addToCart } = useCart();
-  const { user } = useAuth();
+  // Temporarily disable authentication and cart functionality
+  const user = null;
 
   const handleAddToCart = () => {
-    if (!user) {
-      toast({
-        title: "Sign in required",
-        description: "Please sign in to add items to your cart",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    addToCart({
-      productId: product.id,
-      quantity: 1,
-    });
-
+    // Simplified version without using context
     toast({
-      title: "Added to cart",
-      description: `${product.title} added to your cart`,
-      variant: "default",
+      title: "Sign in required",
+      description: "Please sign in to add items to your cart",
+      variant: "destructive",
     });
+    return;
   };
 
   const toggleLike = () => {

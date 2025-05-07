@@ -3,9 +3,7 @@ import { Link } from "wouter";
 import { Heart, ShoppingCart, MapPin, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
-import { useCart } from "@/hooks/use-cart";
 import { Product } from "@shared/schema";
-import { useAuth } from "@/hooks/use-auth";
 
 interface ProductCardProps {
   product: Product;
@@ -13,29 +11,17 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const [isLiked, setIsLiked] = useState(false);
-  const { addToCart } = useCart();
-  const { user } = useAuth();
+  // Temporarily remove context dependencies
+  const user = null;
 
   const handleAddToCart = () => {
-    if (!user) {
-      toast({
-        title: "Sign in required",
-        description: "Please sign in to add items to your cart",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    addToCart({
-      productId: product.id,
-      quantity: 1,
-    });
-
+    // Simplified version that always shows the sign in required message
     toast({
-      title: "Added to cart",
-      description: `${product.title} added to your cart`,
-      variant: "default",
+      title: "Sign in required",
+      description: "Please sign in to add items to your cart",
+      variant: "destructive",
     });
+    return;
   };
 
   const toggleLike = () => {
