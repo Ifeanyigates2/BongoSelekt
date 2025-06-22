@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { ProductCard } from "@/components/ui/product-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -112,10 +110,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <>
-      <Header />
-      
-      <main className="bg-gray-50 min-h-screen">
+    <main className="bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4 py-8">
           {/* Page Header */}
           <div className="mb-8">
@@ -342,8 +337,5 @@ export default function ProductsPage() {
           </div>
         </div>
       </main>
-      
-      <Footer />
-    </>
   );
 }

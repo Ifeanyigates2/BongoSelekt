@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { useCart } from "@/hooks/use-cart";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
@@ -99,28 +97,21 @@ export default function CartPage() {
 
   if (!user) {
     return (
-      <>
-        <Header />
-        <main className="container mx-auto px-4 py-16 text-center">
-          <div className="max-w-md mx-auto">
-            <ShoppingCart size={64} className="mx-auto text-gray-300 mb-4" />
-            <h1 className="text-2xl font-bold mb-2">Your cart is empty</h1>
-            <p className="text-gray-600 mb-6">Please sign in to view your cart</p>
-            <Link href="/auth">
-              <Button className="bg-primary">Sign In</Button>
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </>
+      <main className="container mx-auto px-4 py-16 text-center">
+        <div className="max-w-md mx-auto">
+          <ShoppingCart size={64} className="mx-auto text-gray-300 mb-4" />
+          <h1 className="text-2xl font-bold mb-2">Your cart is empty</h1>
+          <p className="text-gray-600 mb-6">Please sign in to view your cart</p>
+          <Link href="/auth">
+            <Button className="bg-primary">Sign In</Button>
+          </Link>
+        </div>
+      </main>
     );
   }
 
   return (
-    <>
-      <Header />
-      
-      <main className="bg-gray-50 py-8">
+    <main className="bg-gray-50 py-8">
         <div className="container mx-auto px-4">
           <h1 className="text-2xl md:text-3xl font-bold mb-8">Shopping Cart</h1>
           
@@ -418,8 +409,5 @@ export default function CartPage() {
           )}
         </div>
       </main>
-      
-      <Footer />
-    </>
   );
 }

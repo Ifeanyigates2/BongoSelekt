@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link, useLocation } from "wouter";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { Product } from "@shared/schema";
 import { useCart } from "@/hooks/use-cart";
 import { useAuth } from "@/hooks/use-auth";
