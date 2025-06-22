@@ -10,6 +10,7 @@ export const users = pgTable("users", {
   fullName: text("full_name").notNull(),
   location: text("location"),
   phone: text("phone"),
+  role: text("role").notNull().default("user"), // "user" or "admin"
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -52,6 +53,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
   fullName: true,
   location: true,
   phone: true,
+  role: true,
 });
 
 export const insertProductSchema = createInsertSchema(products).pick({

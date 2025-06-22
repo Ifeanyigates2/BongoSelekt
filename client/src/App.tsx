@@ -7,6 +7,8 @@ import AuthPage from "@/pages/auth-page";
 import ProductsPage from "@/pages/products-page";
 import ProductDetailPage from "@/pages/product-detail-page";
 import CartPage from "@/pages/cart-page";
+import AdminLogin from "@/pages/admin-login";
+import AdminDashboard from "@/pages/admin-dashboard";
 import { ProtectedRoute } from "./lib/protected-route";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -24,6 +26,8 @@ function App() {
             <Route path="/products" component={ProductsPage} />
             <Route path="/products/:id" component={ProductDetailPage} />
             <ProtectedRoute path="/cart" component={CartPage} />
+            <Route path="/admin/login" component={AdminLogin} />
+            <Route path="/admin" component={AdminDashboard} />
             <Route component={NotFound} />
           </Switch>
         </main>
