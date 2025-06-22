@@ -47,15 +47,11 @@ PORT=5000
    - Name: @ (or www)
    - Value: [railway-provided-url]
 
-#### 6. Database Migration
+#### 6. Database Migration & Setup
 After deployment, run database setup:
 ```bash
 railway run npm run db:push
-```
-
-#### 7. Create Admin User
-```bash
-railway run npx tsx scripts/create-admin.ts
+railway run npx tsx scripts/setup-production.ts
 ```
 
 ### Alternative Platforms
