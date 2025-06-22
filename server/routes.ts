@@ -171,6 +171,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Middleware to check admin role
+  function requireAdmin(req: any, res: any, next: any) {
+    if (!req.isAuthenticated()) {
+      return res.sendStatus(401);
+    }
+    
+    if (req.user.role !== "admin") {
+      return res.sendStatus(403);
+    }
+    
+    next();
+  }
+
+  // Admin routes (protected)
+  app.post("/api/admin/products", requireAdmin, async (req, res, next) => {
+    try {
+      const product = await storage.createProduct(req.body);
+      res.status(201).json(product);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  app.delete("/api/admin/products/:id", requireAdmin, async (req, res, next) => {
+    try {
+      const productId = parseInt(req.params.id);
+      await storage.deleteProduct(productId);
+      res.sendStatus(204);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  app.patch("/api/admin/products/:id", requireAdmin, async (req, res, next) => {
+    try {
+      const productId = parseInt(req.params.id);
+      const product = await storage.updateProduct(productId, req.body);
+      
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      
+      res.json(product);
+    } catch (error) {
+      next(error);
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
