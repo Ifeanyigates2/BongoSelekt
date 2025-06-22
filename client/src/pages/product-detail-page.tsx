@@ -129,27 +129,20 @@ export default function ProductDetailPage() {
 
   if (isError) {
     return (
-      <>
-        <Header />
-        <main className="container mx-auto px-4 py-8">
-          <div className="bg-red-50 p-6 rounded-lg text-center my-10">
-            <h3 className="text-lg font-medium text-red-800 mb-2">Product not found</h3>
-            <p className="text-red-600 mb-4">We couldn't find the product you're looking for.</p>
-            <Link href="/products">
-              <Button>Browse All Products</Button>
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </>
+      <main className="container mx-auto px-4 py-8">
+        <div className="bg-red-50 p-6 rounded-lg text-center my-10">
+          <h3 className="text-lg font-medium text-red-800 mb-2">Product not found</h3>
+          <p className="text-red-600 mb-4">We couldn't find the product you're looking for.</p>
+          <Link href="/products">
+            <Button>Browse All Products</Button>
+          </Link>
+        </div>
+      </main>
     );
   }
 
   return (
-    <>
-      <Header />
-      
-      <main className="bg-gray-50 py-8">
+    <main className="bg-gray-50 py-8">
         <div className="container mx-auto px-4">
           {/* Breadcrumbs */}
           <Breadcrumb className="mb-6">
@@ -351,8 +344,5 @@ export default function ProductDetailPage() {
           )}
         </div>
       </main>
-      
-      <Footer />
-    </>
   );
 }
