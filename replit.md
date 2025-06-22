@@ -50,6 +50,7 @@ Bongo Selekt is a comprehensive e-commerce platform for curated thrift shopping 
 - Implement proper error handling and validation
 - Use Nigerian Naira (₦) currency formatting
 - Maintain responsive design principles
+- NO .replit.app domain - requires custom domain deployment
 
 ## Next Steps
 - Implement order tracking system
