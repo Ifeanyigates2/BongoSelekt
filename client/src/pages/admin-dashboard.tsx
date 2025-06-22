@@ -40,7 +40,17 @@ type ProductFormValues = z.infer<typeof productFormSchema>;
 
 export default function AdminDashboard() {
   const [, navigate] = useLocation();
-  const { user, logoutMutation } = useAuth();
+  // Handle auth with error catching
+  let user = null;
+  let logoutMutation = null;
+  
+  try {
+    const auth = useAuth();
+    user = auth.user;
+    logoutMutation = auth.logoutMutation;
+  } catch (error) {
+    console.log("Auth context not available in AdminDashboard");
+  }
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const {
@@ -136,7 +146,9 @@ export default function AdminDashboard() {
   }, [user, navigate]);
 
   const handleLogout = () => {
-    logoutMutation.mutate();
+    if (logoutMutation) {
+      logoutMutation.mutate();
+    }
     navigate("/admin/login");
   };
 

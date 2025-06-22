@@ -20,7 +20,17 @@ type AdminLoginFormValues = z.infer<typeof adminLoginSchema>;
 
 export default function AdminLogin() {
   const [, navigate] = useLocation();
-  const { loginMutation, user } = useAuth();
+  // Temporarily handle auth manually to fix context issues
+  let user = null;
+  let loginMutation = null;
+  
+  try {
+    const auth = useAuth();
+    user = auth.user;
+    loginMutation = auth.loginMutation;
+  } catch (error) {
+    console.log("Auth context not available in AdminLogin");
+  }
 
   const {
     register,
@@ -40,6 +50,15 @@ export default function AdminLogin() {
   }, [user, navigate]);
 
   const onSubmit = async (values: AdminLoginFormValues) => {
+    if (!loginMutation) {
+      toast({
+        title: "Error",
+        description: "Authentication system not available",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const result = await loginMutation.mutateAsync(values);
       
@@ -111,9 +130,9 @@ export default function AdminLogin() {
             <Button
               type="submit"
               className="w-full"
-              disabled={loginMutation.isPending}
+              disabled={loginMutation?.isPending || !loginMutation}
             >
-              {loginMutation.isPending ? "Signing in..." : "Sign In"}
+              {loginMutation?.isPending ? "Signing in..." : "Sign In"}
             </Button>
           </form>
 

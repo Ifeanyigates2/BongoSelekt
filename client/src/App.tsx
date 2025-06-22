@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
@@ -14,12 +14,17 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 function App() {
+  const [location] = useLocation();
+  
+  // Check if we're on an admin route to conditionally show header/footer
+  const isAdminRoute = location?.startsWith('/admin');
+
   return (
     <TooltipProvider>
       <Toaster />
       <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">
+        {!isAdminRoute && <Header />}
+        <main className={isAdminRoute ? "min-h-screen" : "flex-grow"}>
           <Switch>
             <Route path="/" component={HomePage} />
             <Route path="/auth" component={AuthPage} />
@@ -31,7 +36,7 @@ function App() {
             <Route component={NotFound} />
           </Switch>
         </main>
-        <Footer />
+        {!isAdminRoute && <Footer />}
       </div>
     </TooltipProvider>
   );
